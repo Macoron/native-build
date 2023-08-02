@@ -5,6 +5,12 @@ jobs:
     name: Build for MacOS (x86_64)
     runs-on: macOS-latest
     steps:
+      - name: Prepare
+        run: |
+          brew update || brew update
+          brew upgrade
+          brew install glib gobject-introspection libsndfile pkg-config jack dbus-glib pulseaudio portaudio sdl2
+    
       - name: Clone
         uses: actions/checkout@v3
         with:
