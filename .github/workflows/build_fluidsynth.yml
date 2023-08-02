@@ -20,5 +20,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: macos
-          path: ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.3.0.dylib
+          path: ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.dylib
           if-no-files-found: error
