@@ -1,0 +1,22 @@
+name: Build C++
+on: workflow_dispatch
+jobs:
+  build-macos:
+    name: Build for MacOS (x86_64)
+    runs-on: macOS-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+
+      - name: Run build script
+        run: |
+          cd fluidsynth
+          cmake -Denable-framework=Off .
+          make libfluidsynth
+          
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos
+          path: ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.3.0.dylib
+          if-no-files-found: error
