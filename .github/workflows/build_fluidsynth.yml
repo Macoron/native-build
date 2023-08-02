@@ -16,9 +16,17 @@ jobs:
           cmake -Denable-framework=Off .
           make libfluidsynth
           
+      - name: Prepare Artifacts
+        run: |
+          mkdir ${{ github.workspace }}/output
+          cd ${{ github.workspace }}/output
+          cp ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.dylib ${{ github.workspace }}/output/fluidsynth.dylib
+          cd /opt/local/lib/
+          cp -a libgthread*.dylib libglib*.dylib libintl*.dylib libsndfile*.dylib libdbus-*.dylib libreadline*.dylib ${{ github.workspace }}/output
+          
       - name: Upload results
         uses: actions/upload-artifact@v3
         with:
           name: macos
-          path: ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.dylib
+          path: ${{ github.workspace }}/output
           if-no-files-found: error
