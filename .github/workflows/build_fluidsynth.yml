@@ -4,13 +4,7 @@ jobs:
   build-macos:
     name: Build for MacOS (x86_64)
     runs-on: macOS-latest
-    steps:
-      - name: Prepare
-        run: |
-          brew update || brew update
-          brew upgrade
-          brew install glib gobject-introspection libsndfile pkg-config jack dbus-glib pulseaudio portaudio sdl2
-    
+    steps:    
       - name: Clone
         uses: actions/checkout@v3
         with:
@@ -27,7 +21,7 @@ jobs:
           mkdir ${{ github.workspace }}/output
           cd ${{ github.workspace }}/output
           cp ${{ github.workspace }}/fluidsynth/src/libfluidsynth.2.dylib ${{ github.workspace }}/output/fluidsynth.dylib
-          cd /opt/local/lib/
+          cd /usr/local/opt/
           cp -a libgthread*.dylib libglib*.dylib libintl*.dylib libsndfile*.dylib libdbus-*.dylib libreadline*.dylib ${{ github.workspace }}/output
           
       - name: Upload results
